@@ -1,5 +1,4 @@
-// dependencies:
-const expect = require('chai').expect;
+ const expect = require('chai').expect;
 
 // sample data source:
 const data = [
@@ -12,9 +11,14 @@ const data = [
 
 // implement this:
 const summary = data.reduce((prev, curr) => {
-    // code here
-
-});
+    const clubName = curr.club.toLocaleLowerCase();
+    return Object.assign(prev, {
+        [clubName]: {
+            members: (prev[clubName] && prev[clubName].members) ? prev[clubName].members + 1 : 1,
+            feesTotal: (prev[clubName] && prev[clubName].feesTotal) ? prev[clubName].feesTotal + parseInt(curr.membership, 10) : parseInt(curr.membership, 10)
+        }
+    });
+}, {});
 
 describe('implementing the above reduce function', function() {
     it('SHOULD summarise the data source to provide a membership count and fees total', function() {
